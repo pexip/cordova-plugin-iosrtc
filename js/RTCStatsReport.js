@@ -9,15 +9,15 @@ class RTCStatsReport {
 	}
 
 	entries() {
-		return this.keys().map((k) => [k, this.data[k]]);
+		return Object.getOwnPropertyNames(this.data).map((k) => [k, this.data[k]]).values();
 	}
 
 	keys() {
-		return Object.getOwnPropertyNames(this.data);
+		return Object.getOwnPropertyNames(this.data).values();
 	}
 
 	values() {
-		return this.keys().map((k) => this.data[k]);
+		return Object.getOwnPropertyNames(this.data).map((k) => this.data[k]).values();
 	}
 
 	get(key) {
