@@ -1486,26 +1486,28 @@ class iosrtcPlugin : CDVPlugin {
 	func getAudioOutput(_ command: CDVInvokedUrlCommand) {
 		NSLog("iosrtcPlugin#getAudioOutput()")
 		do {
-			let currentRoute = try AVAudioSession.sharedInstance().currentRoute.outputs[0].portType
-					NSLog("iosrtcPlugin#getAudioOutput() route is %@", currentRoute.rawValue)
-					var output = "earpiece"
-					switch currentRoute {
+            var output = "unknown"
+            if (AVAudioSession.sharedInstance().currentRoute.outputs.count > 0) {
+                let currentRoute = AVAudioSession.sharedInstance().currentRoute.outputs[0].portType
+                NSLog("iosrtcPlugin#getAudioOutput() route is %@", currentRoute.rawValue)
+                switch currentRoute {
                     case AVAudioSession.Port.builtInReceiver:
-						output = "earpiece"
-						break
+                        output = "earpiece"
+                        break
                     case AVAudioSession.Port.builtInSpeaker:
-						output = "speaker"
-						break
-					default:
-						output = "earpiece"
-						break
-					}
+                        output = "speaker"
+                        break
+                    default:
+                        output = "earpiece"
+                        break
+                }
+            }
 
-					let data: NSDictionary = ["currentRoute": output]
-					self.emit(
-						command.callbackId,
-				result: CDVPluginResult(status: CDVCommandStatus_OK, messageAs: data as! [AnyHashable: Any])
-					)
+            let data: NSDictionary = ["currentRoute": output]
+            self.emit(
+                command.callbackId,
+                result: CDVPluginResult(status: CDVCommandStatus_OK, messageAs: data as! [AnyHashable: Any])
+            )
 		} catch {
 			NSLog("iosrtcPlugin#getAudioOutput() | ERROR: %@", String(describing: error))
 		};
