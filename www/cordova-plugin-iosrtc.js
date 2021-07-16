@@ -3836,7 +3836,9 @@ module.exports = {
 
 	// Debug Stores to see what happens internally.
 	mediaStreamRenderers: mediaStreamRenderers,
-	mediaStreams: mediaStreams
+	mediaStreams: mediaStreams,
+
+	getAudioOutput: getAudioOutput
 };
 
 domready(function () {
@@ -4050,6 +4052,18 @@ function registerGlobals(doNotRestoreCallbacksSupport) {
 
 function dump() {
 	exec(null, null, 'iosrtcPlugin', 'dump', []);
+}
+
+function getAudioOutput() {
+	debug('getAudioOutput()');
+
+	return new Promise(function (resolve, reject) {
+		exec(function (winParam) {
+			resolve(winParam);
+		}, function (err) {
+			reject(err);
+		}, 'iosrtcPlugin', 'getAudioOutput', []);
+	});
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})

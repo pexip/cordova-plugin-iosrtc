@@ -1481,4 +1481,33 @@ class iosrtcPlugin : CDVPlugin {
 						]))
 		}
 	}
+
+	@objc(getAudioOutput:)
+	func getAudioOutput(_ command: CDVInvokedUrlCommand) {
+		NSLog("iosrtcPlugin#getAudioOutput()")
+		do {
+			let currentRoute = try AVAudioSession.sharedInstance().currentRoute.outputs[0].portType
+					NSLog("iosrtcPlugin#getAudioOutput() route is %@", currentRoute.rawValue)
+					var output = "earpiece"
+					switch currentRoute {
+                    case AVAudioSession.Port.builtInReceiver:
+						output = "earpiece"
+						break
+                    case AVAudioSession.Port.builtInSpeaker:
+						output = "speaker"
+						break
+					default:
+						output = "earpiece"
+						break
+					}
+
+					let data: NSDictionary = ["currentRoute": output]
+					self.emit(
+						command.callbackId,
+				result: CDVPluginResult(status: CDVCommandStatus_OK, messageAs: data as! [AnyHashable: Any])
+					)
+		} catch {
+			NSLog("iosrtcPlugin#getAudioOutput() | ERROR: %@", String(describing: error))
+		};
+	}
 }
