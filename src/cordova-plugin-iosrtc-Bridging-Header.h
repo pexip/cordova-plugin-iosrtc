@@ -4,6 +4,7 @@
 
 
 #import <Cordova/CDVPlugin.h>
+#import "PEXDNS.h"
 
 #import <WebRTC/RTCAudioSource.h>
 #import <WebRTC/RTCAudioTrack.h>
