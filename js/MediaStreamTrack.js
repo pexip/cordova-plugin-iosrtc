@@ -77,6 +77,10 @@ Object.defineProperty(MediaStreamTrack.prototype, 'enabled', {
 	}
 });
 
+MediaStreamTrack.prototype.switchCamera = function() {
+	exec(null, null, 'iosrtcPlugin', 'MediaStreamTrack_switchCamera', [this.id]);
+}
+
 MediaStreamTrack.prototype.getConstraints = function () {
 	debug('MediaStreamTrack.prototype.getConstraints  is not implemented.');
 	return {};

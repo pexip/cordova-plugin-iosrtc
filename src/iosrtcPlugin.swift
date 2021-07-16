@@ -1033,6 +1033,22 @@ class iosrtcPlugin : CDVPlugin {
 		}
 	}
 
+	@objc(MediaStreamTrack_switchCamera:) func MediaStreamTrack_switchCamera(_ command: CDVInvokedUrlCommand) {
+		NSLog("iosrtcPlugin#MediaStreamTrack_switchCamera()")
+
+		let id = command.argument(at: 0) as! String
+		let pluginMediaStreamTrack = self.pluginMediaStreamTracks[id]
+
+		if pluginMediaStreamTrack == nil {
+			NSLog("iosrtcPlugin#MediaStreamTrack_switchCamera() | ERROR: pluginMediaStreamTrack with id=%@ does not exist", String(id))
+			return;
+		}
+
+		self.queue.async {[weak pluginMediaStreamTrack] in
+			pluginMediaStreamTrack?.switchCamera()
+		}
+	}
+
 	@objc(MediaStreamTrack_stop:) func MediaStreamTrack_stop(_ command: CDVInvokedUrlCommand) {
 		NSLog("iosrtcPlugin#MediaStreamTrack_stop()")
 
