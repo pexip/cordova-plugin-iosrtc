@@ -41,10 +41,10 @@
   },
   "devDependencies": {
     "browserify": "^14.4.0",
-    "eslint": "7.12.1",
+    "eslint": "10.0.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-plugin-prettier": "3.1.4",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-derequire": "^2.1.1",
     "gulp-header": "^2.0.9",
     "gulp-jshint": "^2.0.4",
